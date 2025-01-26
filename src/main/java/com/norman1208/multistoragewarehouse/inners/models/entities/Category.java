@@ -7,6 +7,7 @@ import java.util.UUID;
 
 @Entity
 @Data
+@Table(name = "category")
 public class Category {
     @Id
     @GeneratedValue
