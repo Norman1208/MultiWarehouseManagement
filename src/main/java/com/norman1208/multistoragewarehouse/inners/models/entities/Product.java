@@ -1,23 +1,33 @@
 package com.norman1208.multistoragewarehouse.inners.models.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Entity
 @Data
+@Entity
 @Table(name = "product")
 public class Product {
+    @Id
+    @GeneratedValue
     private UUID id;
-    private UUID categoryId;
-    private String name;
-    private String description;
-    private BigDecimal price;
-    private int quantity; // Current stock
-    private byte[] image;
 
-    // Getters and Setters
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    private String description;
+
+    @Column(nullable = false)
+    private BigDecimal price;
+
+    @Column(nullable = false, columnDefinition = "NUMERIC DEFAULT 0")
+    private BigDecimal quantity;
+
+    private byte[] image;
 }
